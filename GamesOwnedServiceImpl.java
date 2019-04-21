@@ -178,7 +178,11 @@ public class GamesOwnedServiceImpl implements GamesOwnedService
     @Override
     public Long count() throws DAOException, SQLException
     {
-        return null;
+    	em.getTransaction().begin();
+		Long game = (Long) em.createQuery("select COUNT(go.id) from GamesOwned as go")
+				.getSingleResult();
+		em.getTransaction().commit();
+		return game;
     }
 
 }
