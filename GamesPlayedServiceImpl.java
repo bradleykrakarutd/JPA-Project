@@ -175,7 +175,11 @@ public class GamesPlayedServiceImpl implements GamesPlayedService
     @Override
     public Long count() throws DAOException, SQLException
     {
-        return null;
+    	em.getTransaction().begin();
+		Long game = (Long) em.createQuery("select COUNT(gp.id) from GamesPlayed as gp")
+				.getSingleResult();
+		em.getTransaction().commit();
+		return game;
     }
 
 }
